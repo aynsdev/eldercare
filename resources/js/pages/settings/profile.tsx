@@ -1,11 +1,15 @@
 import { Transition } from '@headlessui/react';
-import { Form, Head, Link, usePage } from '@inertiajs/react';
+import { Form, Head, Link, router, usePage } from '@inertiajs/react';
+import { useRef, useState } from 'react';
+import { toast } from 'sonner';
 import DeleteUser from '@/components/delete-user';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useInitials } from '@/hooks/use-initials';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import type { BreadcrumbItem } from '@/types';
@@ -28,6 +32,38 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage().props;
+    const getInitials = useInitials();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [preview, setPreview] = useState<string | null>(null);
+
+    function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const objectUrl = URL.createObjectURL(file);
+        setPreview(objectUrl);
+
+        const formData = new FormData();
+        formData.append('avatar', file);
+
+        router.post('/settings/avatar', formData, {
+            forceFormData: true,
+            onSuccess: () => {
+                toast.success('Avatar updated.');
+                setPreview(null);
+            },
+            onError: () => {
+                toast.error('Failed to upload avatar.');
+                setPreview(null);
+            },
+        });
+    }
+
+    function handleRemoveAvatar() {
+        router.delete('/settings/avatar', {
+            onSuccess: () => toast.success('Avatar removed.'),
+        });
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -37,6 +73,56 @@ export default function Profile({
 
             <SettingsLayout>
                 <div className="space-y-6">
+                    {/* Avatar Section */}
+                    <div>
+                        <Heading
+                            variant="small"
+                            title="Profile photo"
+                            description="Upload a photo to personalize your account"
+                        />
+                        <div className="mt-4 flex items-center gap-5">
+                            <Avatar className="h-20 w-20">
+                                <AvatarImage
+                                    src={preview ?? auth.user.avatar_url ?? undefined}
+                                    alt={auth.user.name}
+                                    className="object-cover"
+                                />
+                                <AvatarFallback className="text-xl">
+                                    {getInitials(auth.user.name)}
+                                </AvatarFallback>
+                            </Avatar>
+                            <div className="flex flex-col gap-2">
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={handleAvatarChange}
+                                />
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => fileInputRef.current?.click()}
+                                >
+                                    Change photo
+                                </Button>
+                                {auth.user.avatar_url && (
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="sm"
+                                        className="text-destructive hover:text-destructive"
+                                        onClick={handleRemoveAvatar}
+                                    >
+                                        Remove photo
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Profile Info */}
                     <Heading
                         variant="small"
                         title="Profile information"

@@ -2,7 +2,8 @@ export type User = {
     id: number;
     name: string;
     email: string;
-    avatar?: string;
+    avatar?: string | null;
+    avatar_url?: string | null;
     email_verified_at: string | null;
     two_factor_enabled?: boolean;
     created_at: string;
@@ -21,4 +22,12 @@ export type TwoFactorSetupData = {
 
 export type TwoFactorSecretKey = {
     secretKey: string;
+};
+
+export type AppNotification = {
+    id: string;
+    notification_type: string;
+    data: Record<string, unknown>;
+    read_at: string | null;
+    created_at: string;
 };

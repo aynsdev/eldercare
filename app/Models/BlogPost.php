@@ -17,6 +17,7 @@ class BlogPost extends Model
         'category_id',
         'excerpt',
         'content',
+        'featured_image',
         'status',
         'published_at',
     ];

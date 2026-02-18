@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
@@ -50,5 +51,19 @@ class User extends Authenticatable
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    protected $appends = ['avatar_url'];
+
+    /** Full public URL for the user's avatar, or null if not set. */
+    public function getAvatarUrlAttribute(): ?string
+    {
+        $avatar = $this->attributes['avatar'] ?? null;
+
+        if (! $avatar) {
+            return null;
+        }
+
+        return Storage::disk('public')->url($avatar);
     }
 }

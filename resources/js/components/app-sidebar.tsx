@@ -1,5 +1,14 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import {
+    BookOpen,
+    ClipboardList,
+    FileText,
+    LayoutGrid,
+    MessageSquare,
+    Quote,
+    Settings,
+    Users,
+} from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -12,30 +21,73 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 import { dashboard } from '@/routes';
 
-const mainNavItems: NavItem[] = [
+const navSections = [
     {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
+        label: 'Overview',
+        items: [
+            {
+                title: 'Dashboard',
+                href: dashboard(),
+                icon: LayoutGrid,
+            },
+        ],
+    },
+    {
+        label: 'Content',
+        items: [
+            {
+                title: 'Blog Posts',
+                href: '/admin/blog/posts',
+                icon: FileText,
+            },
+            {
+                title: 'Blog Categories',
+                href: '/admin/blog/categories',
+                icon: BookOpen,
+            },
+            {
+                title: 'Testimonials',
+                href: '/admin/testimonials',
+                icon: Quote,
+            },
+            {
+                title: 'Team',
+                href: '/admin/team',
+                icon: Users,
+            },
+        ],
+    },
+    {
+        label: 'Inquiries',
+        items: [
+            {
+                title: 'Contact Inquiries',
+                href: '/admin/inquiries',
+                icon: MessageSquare,
+            },
+            {
+                title: 'Admission Inquiries',
+                href: '/admin/admission-inquiries',
+                icon: ClipboardList,
+            },
+        ],
+    },
+    {
+        label: 'Settings',
+        items: [
+            {
+                title: 'Profile',
+                href: '/settings/profile',
+                icon: Settings,
+            },
+        ],
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
+const footerNavItems: never[] = [];
 
 export function AppSidebar() {
     return (
@@ -53,7 +105,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain sections={navSections} />
             </SidebarContent>
 
             <SidebarFooter>

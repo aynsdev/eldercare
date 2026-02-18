@@ -1,4 +1,4 @@
-import type { Auth } from '@/types/auth';
+import type { AppNotification, Auth } from '@/types/auth';
 
 declare module '@inertiajs/core' {
     export interface InertiaConfig {
@@ -6,6 +6,8 @@ declare module '@inertiajs/core' {
             name: string;
             auth: Auth;
             sidebarOpen: boolean;
+            unreadNotificationsCount: number;
+            recentNotifications: AppNotification[];
             [key: string]: unknown;
         };
     }
