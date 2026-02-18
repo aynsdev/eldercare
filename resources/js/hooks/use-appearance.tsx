@@ -12,11 +12,6 @@ export type UseAppearanceReturn = {
 const listeners = new Set<() => void>();
 let currentAppearance: Appearance = 'light';
 
-const prefersDark = (): boolean => {
-    if (typeof window === 'undefined') return false;
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-};
 
 const setCookie = (name: string, value: string, days = 365): void => {
     if (typeof document === 'undefined') return;
@@ -31,7 +26,7 @@ const getStoredAppearance = (): Appearance => {
 };
 
 const isDarkMode = (appearance: Appearance): boolean => {
-    return appearance === 'dark' || (appearance === 'light' && prefersDark());
+    return appearance === 'dark';
 };
 
 const applyTheme = (appearance: Appearance): void => {
@@ -81,7 +76,7 @@ export function useAppearance(): UseAppearanceReturn {
     const appearance: Appearance = useSyncExternalStore(
         subscribe,
         () => currentAppearance,
-        () => 'system',
+        () => 'light',
     );
 
     const resolvedAppearance: ResolvedAppearance = useMemo(
