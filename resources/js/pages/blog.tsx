@@ -29,7 +29,7 @@ function formatDate(dateString: string): string {
 
 function categoryColor(category: string): string {
     const map: Record<string, string> = {
-        'Health & Wellness': 'bg-green-100 text-green-800',
+        'Health & Wellness': 'bg-emerald-100 text-emerald-800',
         Nutrition: 'bg-orange-100 text-orange-800',
         'Mental Health': 'bg-purple-100 text-purple-800',
         Safety: 'bg-red-100 text-red-800',
@@ -49,15 +49,16 @@ export default function Blog({ posts }: Props) {
 
     return (
         <PublicLayout
-            title="Blog — St. Joseph Eldercare Residences"
+            title="Blog"
             description="Wellness articles, tips, and insights to support healthy aging for seniors and their families."
         >
             {/* Hero */}
-            <section className="bg-gradient-subtle py-20">
+            <section className="bg-gradient-subtle py-24">
                 <div className="container mx-auto px-4">
                     <div className="mx-auto max-w-4xl text-center">
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Resources</p>
                         <h1 className="heading-large mb-6">Wellness &amp; Care Resources</h1>
-                        <p className="text-xl text-muted-foreground leading-relaxed">
+                        <p className="text-senior text-muted-foreground mx-auto max-w-3xl leading-relaxed">
                             Helpful articles, tips, and insights to support you and your loved ones on the journey of
                             healthy aging. From wellness advice to family guidance, we&apos;re here to help.
                         </p>
@@ -67,28 +68,29 @@ export default function Blog({ posts }: Props) {
 
             {/* Featured Article */}
             {featuredPost && (
-                <section className="bg-soft-white py-20">
+                <section className="bg-soft-white py-24">
                     <div className="container mx-auto px-4">
                         <div className="mb-12 text-center">
-                            <h2 className="heading-medium mb-4">Featured Article</h2>
+                            <p className="mb-2 text-base font-semibold uppercase tracking-widest text-primary">Featured</p>
+                            <h2 className="heading-medium">Featured Article</h2>
                         </div>
 
-                        <div className="card-warm mx-auto max-w-4xl">
-                            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+                        <div className="card-warm mx-auto max-w-5xl">
+                            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
                                 <div>
-                                    <div className="mb-4 flex items-center gap-4">
+                                    <div className="mb-5 flex items-center gap-3">
                                         <span
-                                            className={`rounded-full px-3 py-1 text-sm font-medium ${categoryColor(featuredPost.category)}`}
+                                            className={`rounded-full px-4 py-1.5 text-base font-medium ${categoryColor(featuredPost.category)}`}
                                         >
                                             {featuredPost.category}
                                         </span>
                                     </div>
 
-                                    <h3 className="heading-medium mb-4">{featuredPost.title}</h3>
+                                    <h3 className="heading-medium mb-5">{featuredPost.title}</h3>
 
                                     <p className="text-senior text-muted-foreground mb-6">{featuredPost.excerpt}</p>
 
-                                    <div className="mb-6 flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+                                    <div className="mb-8 flex flex-wrap items-center gap-5 text-base text-muted-foreground">
                                         <div className="flex items-center gap-2">
                                             <User className="h-4 w-4" />
                                             <span>St. Joseph Eldercare Team</span>
@@ -105,9 +107,9 @@ export default function Blog({ posts }: Props) {
                                     </button>
                                 </div>
 
-                                <div className="bg-gradient-warm rounded-xl p-8 text-soft-white">
-                                    <h4 className="heading-small mb-4">Benefits of Active Senior Living</h4>
-                                    <ul className="text-senior space-y-3">
+                                <div className="rounded-2xl bg-gradient-to-br from-forest-green to-sage-green p-8 text-soft-white">
+                                    <h4 className="heading-small mb-5 text-soft-white">Benefits of Active Senior Living</h4>
+                                    <ul className="space-y-4">
                                         {[
                                             'Improves balance and reduces fall risk',
                                             'Maintains bone density and muscle strength',
@@ -115,8 +117,8 @@ export default function Blog({ posts }: Props) {
                                             'Enhances cardiovascular health',
                                         ].map((benefit) => (
                                             <li key={benefit} className="flex items-center gap-3">
-                                                <div className="h-2 w-2 shrink-0 rounded-full bg-warm-gold" />
-                                                <span>{benefit}</span>
+                                                <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-warm-gold" />
+                                                <span className="text-senior text-soft-white/95">{benefit}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -128,10 +130,11 @@ export default function Blog({ posts }: Props) {
             )}
 
             {/* Articles Grid */}
-            <section className="bg-cream py-20">
+            <section className="bg-cream py-24">
                 <div className="container mx-auto px-4">
                     <div className="mb-12 text-center">
-                        <h2 className="heading-medium mb-6">Recent Articles</h2>
+                        <p className="mb-2 text-base font-semibold uppercase tracking-widest text-primary">All Articles</p>
+                        <h2 className="heading-medium mb-4">Recent Articles</h2>
                         <p className="text-senior text-muted-foreground mx-auto max-w-2xl">
                             Stay informed with our latest insights on senior care, health, and wellness.
                         </p>
@@ -140,19 +143,22 @@ export default function Blog({ posts }: Props) {
                     {/* Category Filter */}
                     <div className="mb-12 flex flex-wrap justify-center gap-3">
                         {categories.map((cat) => (
-                            <Button
+                            <button
                                 key={cat}
-                                variant={cat === selectedCategory ? 'default' : 'outline'}
-                                className="text-senior"
                                 onClick={() => setSelectedCategory(cat)}
+                                className={`rounded-full px-5 py-2.5 text-base font-medium transition-all ${
+                                    cat === selectedCategory
+                                        ? 'bg-primary text-primary-foreground shadow-md'
+                                        : 'border border-border bg-white text-foreground hover:border-primary/50 hover:text-primary'
+                                }`}
                             >
                                 {cat}
-                            </Button>
+                            </button>
                         ))}
                     </div>
 
                     {filteredPosts.length === 0 ? (
-                        <div className="py-12 text-center">
+                        <div className="py-16 text-center">
                             <p className="text-senior text-muted-foreground">
                                 No articles found. Check back soon for wellness tips and updates!
                             </p>
@@ -162,24 +168,24 @@ export default function Blog({ posts }: Props) {
                             {filteredPosts.map((post) => (
                                 <div
                                     key={post.id}
-                                    className="card-warm flex flex-col transition-shadow duration-200 hover:shadow-lg"
+                                    className="card-warm flex flex-col"
                                 >
-                                    <div className="mb-4 flex items-center gap-3">
+                                    <div className="mb-5 flex items-center gap-3">
                                         <span
-                                            className={`rounded-full px-3 py-1 text-sm font-medium ${categoryColor(post.category)}`}
+                                            className={`rounded-full px-3.5 py-1.5 text-base font-medium ${categoryColor(post.category)}`}
                                         >
                                             {post.category}
                                         </span>
-                                        <span className="text-xs text-muted-foreground">5 min read</span>
+                                        <span className="text-sm text-muted-foreground">5 min read</span>
                                     </div>
 
-                                    <h3 className="heading-small mb-3 line-clamp-2">{post.title}</h3>
+                                    <h3 className="heading-small mb-4 line-clamp-2">{post.title}</h3>
 
-                                    <p className="text-senior text-muted-foreground mb-4 line-clamp-3 flex-1">
+                                    <p className="text-senior text-muted-foreground mb-5 line-clamp-3 flex-1">
                                         {post.excerpt}
                                     </p>
 
-                                    <div className="mb-4 flex items-center justify-between text-sm text-muted-foreground">
+                                    <div className="mb-5 flex items-center justify-between text-sm text-muted-foreground">
                                         <div className="flex items-center gap-2">
                                             <User className="h-4 w-4" />
                                             <span>St. Joseph Eldercare Team</span>
@@ -190,7 +196,7 @@ export default function Blog({ posts }: Props) {
                                         </div>
                                     </div>
 
-                                    <Button variant="outline" className="w-full">
+                                    <Button variant="outline" className="w-full border-primary/30 text-base text-primary hover:bg-primary/10">
                                         Read More
                                         <ArrowRight className="ml-2 h-4 w-4" />
                                     </Button>
@@ -202,10 +208,11 @@ export default function Blog({ posts }: Props) {
             </section>
 
             {/* CTA */}
-            <section className="bg-soft-white py-20">
+            <section className="bg-soft-white py-24">
                 <div className="container mx-auto px-4 text-center">
+                    <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Talk to Us</p>
                     <h2 className="heading-large mb-6">Have Questions About Senior Care?</h2>
-                    <p className="mx-auto mb-8 max-w-2xl text-xl text-muted-foreground">
+                    <p className="text-senior text-muted-foreground mx-auto mb-10 max-w-2xl">
                         Our experienced team is here to help answer your questions and provide personalized guidance for
                         your family&apos;s unique situation.
                     </p>

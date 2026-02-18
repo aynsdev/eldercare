@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { Calendar, Clock, Heart, Home, Pill, Stethoscope, Utensils, Users } from 'lucide-react';
+import { primaryPhone } from '@/lib/contact';
 import PublicLayout from '@/layouts/public-layout';
 
 const facilityFeatures = [
@@ -119,15 +120,16 @@ const additionalServices = [
 export default function Services() {
     return (
         <PublicLayout
-            title="Services & Care — St. Joseph Eldercare Residences"
+            title="Services & Care"
             description="Comprehensive accommodation and care services designed to help seniors live comfortably and safely."
         >
             {/* Hero */}
-            <section className="bg-gradient-subtle py-20">
+            <section className="bg-gradient-subtle py-24">
                 <div className="container mx-auto px-4">
                     <div className="mx-auto max-w-4xl text-center">
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">What We Offer</p>
                         <h1 className="heading-large mb-6">Accommodation &amp; Care Services</h1>
-                        <p className="text-xl text-muted-foreground leading-relaxed">
+                        <p className="text-senior text-muted-foreground mx-auto max-w-3xl leading-relaxed">
                             We provide comprehensive accommodation and care services designed to help seniors live
                             comfortably and safely while maintaining their independence in a warm, supportive
                             environment.
@@ -137,9 +139,10 @@ export default function Services() {
             </section>
 
             {/* Room & Facility Features */}
-            <section className="bg-soft-white py-20">
+            <section className="bg-soft-white py-24">
                 <div className="container mx-auto px-4">
                     <div className="mb-16 text-center">
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Accommodations</p>
                         <h2 className="heading-large mb-6">Room &amp; Facility Features</h2>
                         <p className="text-senior text-muted-foreground mx-auto max-w-3xl">
                             Our modern, comfortable accommodations are designed with seniors in mind, providing privacy,
@@ -150,8 +153,8 @@ export default function Services() {
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {facilityFeatures.map(({ icon: Icon, title, text }) => (
                             <div key={title} className="card-warm">
-                                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                                    <Icon className="h-6 w-6 text-primary" />
+                                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/8">
+                                    <Icon className="h-7 w-7 text-primary" />
                                 </div>
                                 <h3 className="heading-small mb-3">{title}</h3>
                                 <p className="text-senior text-muted-foreground">{text}</p>
@@ -162,9 +165,10 @@ export default function Services() {
             </section>
 
             {/* Care Services */}
-            <section className="bg-cream py-20">
+            <section className="bg-cream py-24">
                 <div className="container mx-auto px-4">
                     <div className="mb-16 text-center">
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Included Care</p>
                         <h2 className="heading-large mb-6">Comprehensive Care Services</h2>
                         <p className="text-senior text-muted-foreground mx-auto max-w-3xl">
                             Our professional care team provides round-the-clock support to ensure residents receive the
@@ -175,8 +179,8 @@ export default function Services() {
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {careServices.map(({ icon: Icon, title, text }) => (
                             <div key={title} className="card-warm">
-                                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                                    <Icon className="h-6 w-6 text-primary" />
+                                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/8">
+                                    <Icon className="h-7 w-7 text-primary" />
                                 </div>
                                 <h3 className="heading-small mb-3">{title}</h3>
                                 <p className="text-senior text-muted-foreground">{text}</p>
@@ -187,12 +191,13 @@ export default function Services() {
             </section>
 
             {/* Additional Customizable Services */}
-            <section className="bg-soft-white py-20">
+            <section className="bg-soft-white py-24">
                 <div className="container mx-auto px-4">
                     <div className="mb-16 text-center">
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-accent-foreground">Premium Add-Ons</p>
                         <h2 className="heading-large mb-6">Additional Customizable Services</h2>
                         <p className="text-senior text-muted-foreground mx-auto max-w-3xl">
-                            These premium services are available for additional charges on top of regular rates. We'll
+                            These premium services are available for additional charges on top of regular rates. We&apos;ll
                             discuss these options with you in advance to customize care to your loved one&apos;s specific
                             needs.
                         </p>
@@ -200,9 +205,9 @@ export default function Services() {
 
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {additionalServices.map(({ icon: Icon, title, text }) => (
-                            <div key={title} className="card-warm border-2 border-accent">
-                                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/20">
-                                    <Icon className="h-6 w-6 text-accent" />
+                            <div key={title} className="card-warm border-2 border-accent/30">
+                                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-accent/25 to-accent/10">
+                                    <Icon className="h-7 w-7 text-accent-foreground" />
                                 </div>
                                 <h3 className="heading-small mb-3">{title}</h3>
                                 <p className="text-senior text-muted-foreground">{text}</p>
@@ -213,11 +218,11 @@ export default function Services() {
             </section>
 
             {/* Important Notice */}
-            <section className="bg-cream py-20">
+            <section className="bg-cream py-16">
                 <div className="container mx-auto px-4">
                     <div className="mx-auto max-w-4xl">
                         <div className="card-warm border-l-4 border-l-accent">
-                            <h3 className="heading-medium mb-6 text-accent">Important Note</h3>
+                            <h3 className="heading-medium mb-4 text-accent-foreground">Important Note</h3>
                             <p className="text-senior text-muted-foreground leading-relaxed">
                                 Our comprehensive care package does not include the cost of medical supplies, medicines,
                                 physical therapy, additional doctor visits, or laboratory tests. These services will be
@@ -230,25 +235,25 @@ export default function Services() {
             </section>
 
             {/* CTA */}
-            <section className="bg-gradient-warm py-20 text-soft-white">
+            <section className="bg-gradient-warm py-24 text-soft-white">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="mb-6 text-4xl font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <h2 className="mb-6 text-4xl font-semibold md:text-5xl" style={{ fontFamily: 'var(--font-heading)' }}>
                         Experience Our Comprehensive Care
                     </h2>
-                    <p className="mx-auto mb-8 max-w-2xl text-xl">
+                    <p className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-soft-white/90">
                         Schedule a tour to see our modern facilities and learn more about how our comprehensive
                         accommodation and care services can benefit your loved one.
                     </p>
                     <div className="flex flex-col justify-center gap-4 sm:flex-row">
                         <Link
                             href="/contact"
-                            className="flex items-center justify-center gap-2 rounded-lg bg-soft-white px-10 py-4 text-xl font-medium text-forest-green transition-all hover:bg-soft-white/90"
+                            className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] bg-soft-white px-10 py-4 text-xl font-semibold text-forest-green shadow-lg transition-all hover:bg-soft-white/90"
                         >
                             Schedule a Visit
                         </Link>
                         <a
-                            href="tel:+639153714314"
-                            className="flex items-center justify-center gap-2 rounded-lg border border-soft-white bg-soft-white/20 px-10 py-4 text-xl text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
+                            href={`tel:${primaryPhone.tel}`}
+                            className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] border-2 border-soft-white/50 bg-soft-white/15 px-10 py-4 text-xl font-semibold text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
                         >
                             Call Us Now
                         </a>

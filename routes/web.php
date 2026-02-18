@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::get('/about', fn () => Inertia::render('about'))->name('about');
 
+Route::get('/team', fn () => Inertia::render('team'))->name('team');
+
 Route::get('/services', fn () => Inertia::render('services'))->name('services');
 
 Route::get('/faqs', fn () => Inertia::render('faqs'))->name('faqs');

@@ -1,6 +1,8 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, Calendar, Heart, Phone, Shield, Star, Users } from 'lucide-react';
+import { ArrowDown, ArrowRight, Calendar, Heart, Phone, Shield, Star, Users } from 'lucide-react';
+import { primaryPhone } from '@/lib/contact';
 import PublicLayout from '@/layouts/public-layout';
+
 
 interface Testimonial {
     id: number;
@@ -16,58 +18,106 @@ interface Props {
 
 function StarRating({ rating }: { rating: number }) {
     return (
-        <div className="mb-2 flex text-warm-gold">
+        <div className="mb-3 flex gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
-                <Star key={star} className={`h-4 w-4 ${star <= rating ? 'fill-current' : 'text-gray-300'}`} />
+                <Star
+                    key={star}
+                    className={`h-5 w-5 ${star <= rating ? 'fill-warm-gold text-warm-gold' : 'text-border'}`}
+                />
             ))}
         </div>
     );
 }
 
+const stats = [
+    { number: '50+', label: 'Residents Cared For' },
+    { number: '24/7', label: 'Professional Care' },
+    { number: '5th Flr', label: 'Holy Name Medical Center' },
+];
+
 export default function Home({ testimonials }: Props) {
     return (
         <PublicLayout
-            title="St. Joseph Eldercare Residences — Compassionate Senior Care"
+            title="Home"
             description="Providing compassionate, dignified senior care in a warm family-oriented environment in Tagbilaran City."
         >
             {/* Hero Section */}
-            <section className="relative flex min-h-[80vh] items-center justify-center" style={{ minHeight: '600px' }}>
+            <section className="relative flex flex-col" style={{ minHeight: '600px', height: '72vh' }}>
+                {/* Background */}
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{ backgroundImage: 'url(/images/residence-exterior.jpg)' }}
                 >
-                    <div className="absolute inset-0 bg-forest-green/60" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-forest-green/75 via-forest-green/60 to-forest-green/80" />
                 </div>
 
-                <div className="relative z-10 container mx-auto px-4 text-center text-soft-white">
-                    <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={{ fontFamily: 'var(--font-heading)' }}>
-                        Welcome to Your New Home
-                    </h1>
-                    <p className="text-senior mx-auto mb-8 max-w-3xl md:text-2xl">
-                        At St. Joseph Eldercare Residences, we provide compassionate care and comfortable living for
-                        seniors who deserve dignity, respect, and the warmth of family.
-                    </p>
-                    <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                        <Link href="/contact" className="btn-primary justify-center text-xl">
-                            <Calendar className="mr-2 h-6 w-6" />
-                            Schedule a Visit
-                        </Link>
-                        <a
-                            href="tel:+639153714314"
-                            className="flex items-center justify-center gap-2 rounded-lg border border-soft-white bg-soft-white/20 px-10 py-4 text-xl text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
-                        >
-                            <Phone className="h-6 w-6" />
-                            Call Now
-                        </a>
+                {/* Centered content */}
+                <div className="relative z-10 flex flex-1 items-center justify-center px-4">
+                    <div className="container mx-auto text-center text-soft-white">
+                        {/* Trust badge */}
+                        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-warm-gold/40 bg-warm-gold/15 px-5 py-2 backdrop-blur-sm">
+                            <span className="h-1.5 w-1.5 rounded-full bg-warm-gold" />
+                            <span className="text-base font-medium text-warm-gold">Assisted Living & Elderly Care Services · Tagbilaran City, Bohol</span>
+                        </div>
+
+                        <h1 className="mb-3 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={{ fontFamily: 'var(--font-heading)' }}>
+                            Welcome to Your
+                            <br />
+                            <span className="text-warm-gold">Home Away from Home</span>
+                        </h1>
+                        <p className="mx-auto mb-5 text-lg font-medium text-soft-white/80 md:text-xl" style={{ fontFamily: 'var(--font-heading)' }}>
+                            A Life of Comfort, Dignity, and Care
+                        </p>
+                        <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-soft-white/90">
+                            We offer a caring, safe, and comfortable environment where seniors can live
+                            semi-independently while receiving compassionate assistance with daily activities,
+                            medications, meal preparation, and more.
+                        </p>
+                        <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                            <Link href="/contact" className="btn-primary justify-center text-xl">
+                                <Calendar className="mr-2 h-6 w-6" />
+                                Schedule a Visit
+                            </Link>
+                            <a
+                                href={`tel:${primaryPhone.tel}`}
+                                className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] border-2 border-soft-white/50 bg-soft-white/15 px-9 py-3.5 text-xl font-semibold text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
+                            >
+                                <Phone className="h-6 w-6" />
+                                Call Now
+                            </a>
+                        </div>
                     </div>
+                </div>
+
+                {/* Scroll indicator — anchored to bottom of section */}
+                <div className="relative z-10 flex flex-col items-center gap-1 pb-5 text-soft-white/60">
+                    <span className="text-sm font-medium tracking-wide">Scroll to explore</span>
+                    <ArrowDown className="h-5 w-5 animate-bounce" />
                 </div>
             </section>
 
+            {/* Stats Strip */}
+            <div className="bg-forest-green">
+                <div className="container mx-auto px-4 py-8">
+                    <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+                        {stats.map(({ number, label }) => (
+                            <div key={label} className="text-center">
+                                <div className="mb-1 text-3xl font-bold text-warm-gold" style={{ fontFamily: 'var(--font-heading)' }}>
+                                    {number}
+                                </div>
+                                <div className="text-base text-soft-white/80">{label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             {/* Why Families Choose Us */}
-            <section className="bg-soft-white py-20">
+            <section className="bg-soft-white py-24">
                 <div className="container mx-auto px-4">
                     <div className="mb-16 text-center">
-                        <h2 className="heading-large mb-6">Why Families Choose Us</h2>
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Why Choose Us</p>
+                        <h2 className="heading-large mb-6">A Family-Oriented Home for Seniors</h2>
                         <p className="text-senior text-muted-foreground mx-auto max-w-3xl">
                             For years, we&apos;ve been providing seniors with the care they need and the dignity they
                             deserve in a warm, family-oriented environment.
@@ -93,8 +143,8 @@ export default function Home({ testimonials }: Props) {
                             },
                         ].map(({ icon: Icon, title, text }) => (
                             <div key={title} className="card-warm text-center">
-                                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                                    <Icon className="h-8 w-8 text-primary" />
+                                <div className="mx-auto mb-6 flex h-18 w-18 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/8">
+                                    <Icon className="h-9 w-9 text-primary" />
                                 </div>
                                 <h3 className="heading-small mb-4">{title}</h3>
                                 <p className="text-senior text-muted-foreground">{text}</p>
@@ -105,10 +155,11 @@ export default function Home({ testimonials }: Props) {
             </section>
 
             {/* Services Overview */}
-            <section className="bg-cream py-20">
+            <section className="bg-cream py-24">
                 <div className="container mx-auto px-4">
-                    <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+                    <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2">
                         <div>
+                            <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Our Services</p>
                             <h2 className="heading-large mb-6">Complete Care for Your Loved Ones</h2>
                             <p className="text-senior text-muted-foreground mb-8">
                                 From daily personal care to medication management, nutritious meals to social
@@ -116,15 +167,17 @@ export default function Home({ testimonials }: Props) {
                                 independence while receiving the care they need.
                             </p>
 
-                            <ul className="mb-8 space-y-4">
+                            <ul className="mb-10 space-y-4">
                                 {[
                                     'Personal care and grooming assistance',
                                     'Medication management and reminders',
                                     'Nutritious meals and dietary support',
                                     'Social activities and companionship',
                                 ].map((item) => (
-                                    <li key={item} className="flex items-center gap-3">
-                                        <div className="h-2 w-2 shrink-0 rounded-full bg-primary" />
+                                    <li key={item} className="flex items-center gap-4">
+                                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/15">
+                                            <div className="h-2.5 w-2.5 rounded-full bg-primary" />
+                                        </div>
                                         <span className="text-senior">{item}</span>
                                     </li>
                                 ))}
@@ -136,12 +189,17 @@ export default function Home({ testimonials }: Props) {
                             </Link>
                         </div>
 
-                        <div>
+                        <div className="relative">
                             <img
                                 src="/images/seniors-living-room.jpg"
                                 alt="Happy seniors in our comfortable living area"
-                                className="w-full rounded-xl shadow-lg"
+                                className="w-full rounded-2xl shadow-2xl"
                             />
+                            {/* Floating accent */}
+                            <div className="absolute -bottom-4 -left-4 rounded-xl bg-forest-green px-6 py-4 text-soft-white shadow-lg">
+                                <div className="text-2xl font-bold text-warm-gold" style={{ fontFamily: 'var(--font-heading)' }}>24/7</div>
+                                <div className="text-sm text-soft-white/90">Care Available</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,9 +207,10 @@ export default function Home({ testimonials }: Props) {
 
             {/* Testimonials */}
             {testimonials.length > 0 && (
-                <section className="bg-soft-white py-20">
+                <section className="bg-soft-white py-24">
                     <div className="container mx-auto px-4">
                         <div className="mb-16 text-center">
+                            <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Testimonials</p>
                             <h2 className="heading-large mb-6">What Families Say About Us</h2>
                             <p className="text-senior text-muted-foreground mx-auto max-w-3xl">
                                 Hear from families who have trusted us with their loved ones&apos; care.
@@ -160,14 +219,19 @@ export default function Home({ testimonials }: Props) {
 
                         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                             {testimonials.slice(0, 3).map((t) => (
-                                <div key={t.id} className="card-warm">
-                                    <div className="mb-4">
-                                        <StarRating rating={t.rating} />
-                                        <p className="text-senior text-muted-foreground italic">&ldquo;{t.content}&rdquo;</p>
-                                    </div>
-                                    <div className="border-t border-border pt-4">
-                                        <p className="font-semibold text-foreground">{t.name}</p>
-                                        <p className="text-sm text-muted-foreground">{t.relation}</p>
+                                <div key={t.id} className="card-warm flex flex-col">
+                                    <StarRating rating={t.rating} />
+                                    <p className="text-senior text-muted-foreground mb-6 flex-1 italic">
+                                        &ldquo;{t.content}&rdquo;
+                                    </p>
+                                    <div className="flex items-center gap-3 border-t border-border pt-5">
+                                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/15 text-base font-bold text-primary">
+                                            {t.name.charAt(0)}
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-foreground">{t.name}</p>
+                                            <p className="text-sm text-muted-foreground">{t.relation}</p>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -177,29 +241,29 @@ export default function Home({ testimonials }: Props) {
             )}
 
             {/* Call to Action */}
-            <section className="bg-gradient-warm py-20 text-soft-white">
+            <section className="bg-gradient-warm py-24 text-soft-white">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="mb-6 text-4xl font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <h2 className="mb-6 text-4xl font-semibold md:text-5xl" style={{ fontFamily: 'var(--font-heading)' }}>
                         Ready to Learn More?
                     </h2>
-                    <p className="mx-auto mb-8 max-w-2xl text-xl">
+                    <p className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-soft-white/95">
                         We&apos;d love to show you our beautiful residence and discuss how we can provide the perfect
                         care solution for your loved one.
                     </p>
                     <div className="flex flex-col justify-center gap-4 sm:flex-row">
                         <Link
                             href="/contact"
-                            className="flex items-center justify-center gap-2 rounded-lg bg-soft-white px-10 py-4 text-xl font-medium text-forest-green transition-all hover:bg-soft-white/90"
+                            className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] bg-soft-white px-10 py-4 text-xl font-semibold text-forest-green shadow-lg transition-all hover:bg-soft-white/90"
                         >
                             <Calendar className="h-6 w-6" />
                             Schedule Your Visit Today
                         </Link>
                         <a
-                            href="tel:+639153714314"
-                            className="flex items-center justify-center gap-2 rounded-lg border border-soft-white bg-soft-white/20 px-10 py-4 text-xl text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
+                            href={`tel:${primaryPhone.tel}`}
+                            className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] border-2 border-soft-white/50 bg-soft-white/15 px-10 py-4 text-xl font-semibold text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
                         >
                             <Phone className="h-6 w-6" />
-                            Call +63 915 371 4314
+                            Call {primaryPhone.label}
                         </a>
                     </div>
                 </div>

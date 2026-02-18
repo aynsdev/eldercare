@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { primaryPhone } from '@/lib/contact';
 import PublicLayout from '@/layouts/public-layout';
 
 const faqCategories = [
@@ -99,21 +100,21 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="card-warm border-0">
+        <div className="overflow-hidden rounded-xl border border-border bg-white shadow-sm transition-shadow hover:shadow-md">
             <button
-                className="text-senior flex w-full items-start justify-between gap-4 px-6 py-4 text-left font-medium"
+                className="flex w-full items-start justify-between gap-4 px-6 py-5 text-left"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-expanded={isOpen}
             >
-                <span>{question}</span>
-                {isOpen ? (
-                    <ChevronUp className="mt-1 h-5 w-5 shrink-0 text-primary" />
-                ) : (
-                    <ChevronDown className="mt-1 h-5 w-5 shrink-0 text-primary" />
-                )}
+                <span className="text-senior font-semibold text-foreground">{question}</span>
+                <div className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors ${isOpen ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'}`}>
+                    {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </div>
             </button>
             {isOpen && (
-                <div className="text-senior text-muted-foreground px-6 pb-6 leading-relaxed">{answer}</div>
+                <div className="border-t border-border bg-cream/40 px-6 py-5">
+                    <p className="text-senior text-muted-foreground leading-relaxed">{answer}</p>
+                </div>
             )}
         </div>
     );
@@ -122,15 +123,16 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 export default function FAQs() {
     return (
         <PublicLayout
-            title="Frequently Asked Questions — St. Joseph Eldercare Residences"
+            title="Frequently Asked Questions"
             description="Answers to common questions about senior care, admission, activities, and costs."
         >
             {/* Hero */}
-            <section className="bg-gradient-subtle py-20">
+            <section className="bg-gradient-subtle py-24">
                 <div className="container mx-auto px-4">
                     <div className="mx-auto max-w-4xl text-center">
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Common Questions</p>
                         <h1 className="heading-large mb-6">Frequently Asked Questions</h1>
-                        <p className="text-xl text-muted-foreground leading-relaxed">
+                        <p className="text-senior text-muted-foreground mx-auto max-w-3xl leading-relaxed">
                             We understand that choosing senior care for your loved one brings many questions. Here are
                             answers to the questions families most commonly ask us.
                         </p>
@@ -139,13 +141,16 @@ export default function FAQs() {
             </section>
 
             {/* FAQ Sections */}
-            <section className="bg-soft-white py-20">
+            <section className="bg-soft-white py-24">
                 <div className="container mx-auto px-4">
                     <div className="mx-auto max-w-4xl">
                         {faqCategories.map((category) => (
-                            <div key={category.title} className="mb-12">
-                                <h2 className="heading-medium mb-8 text-center">{category.title}</h2>
-                                <div className="space-y-4">
+                            <div key={category.title} className="mb-14">
+                                <div className="mb-6 flex items-center gap-4">
+                                    <h2 className="heading-medium">{category.title}</h2>
+                                    <div className="h-px flex-1 bg-border" />
+                                </div>
+                                <div className="space-y-3">
                                     {category.questions.map((faq) => (
                                         <FaqItem key={faq.question} question={faq.question} answer={faq.answer} />
                                     ))}
@@ -157,30 +162,31 @@ export default function FAQs() {
             </section>
 
             {/* Still Have Questions */}
-            <section className="bg-cream py-20">
+            <section className="bg-cream py-24">
                 <div className="container mx-auto px-4">
                     <div className="mx-auto max-w-4xl text-center">
+                        <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Need More Help?</p>
                         <h2 className="heading-large mb-6">Still Have Questions?</h2>
-                        <p className="mb-8 text-xl text-muted-foreground">
+                        <p className="text-senior text-muted-foreground mb-12 mx-auto max-w-2xl">
                             Our experienced care team is here to provide personalized answers and guidance for your
                             family&apos;s unique situation.
                         </p>
 
-                        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2">
-                            <div className="text-center">
+                        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                            <div className="card-warm text-center">
                                 <h3 className="heading-small mb-4">Call Us Directly</h3>
-                                <p className="text-senior text-muted-foreground mb-4">
+                                <p className="text-senior text-muted-foreground mb-6">
                                     Speak with our care coordinators who can answer specific questions about services,
                                     availability, and costs.
                                 </p>
-                                <a href="tel:+639153714314" className="btn-primary justify-center text-xl">
-                                    Call +63 915 371 4314
+                                <a href={`tel:${primaryPhone.tel}`} className="btn-primary justify-center text-xl">
+                                    Call {primaryPhone.label}
                                 </a>
                             </div>
 
-                            <div className="text-center">
+                            <div className="card-warm text-center">
                                 <h3 className="heading-small mb-4">Schedule a Tour</h3>
-                                <p className="text-senior text-muted-foreground mb-4">
+                                <p className="text-senior text-muted-foreground mb-6">
                                     See our residence firsthand and meet our staff. Tours include a comprehensive
                                     discussion of your loved one&apos;s needs.
                                 </p>
@@ -194,25 +200,25 @@ export default function FAQs() {
             </section>
 
             {/* CTA */}
-            <section className="bg-gradient-warm py-20 text-soft-white">
+            <section className="bg-gradient-warm py-24 text-soft-white">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="mb-6 text-4xl font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <h2 className="mb-6 text-4xl font-semibold md:text-5xl" style={{ fontFamily: 'var(--font-heading)' }}>
                         We&apos;re Here to Help
                     </h2>
-                    <p className="mx-auto mb-8 max-w-2xl text-xl">
+                    <p className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed text-soft-white/90">
                         Making the decision about senior care is important and personal. We&apos;re committed to
                         providing all the information you need to make the best choice for your family.
                     </p>
                     <div className="flex flex-col justify-center gap-4 sm:flex-row">
                         <Link
                             href="/contact"
-                            className="flex items-center justify-center gap-2 rounded-lg bg-soft-white px-10 py-4 text-xl font-medium text-forest-green transition-all hover:bg-soft-white/90"
+                            className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] bg-soft-white px-10 py-4 text-xl font-semibold text-forest-green shadow-lg transition-all hover:bg-soft-white/90"
                         >
                             Get in Touch
                         </Link>
                         <Link
                             href="/about"
-                            className="flex items-center justify-center gap-2 rounded-lg border border-soft-white bg-soft-white/20 px-10 py-4 text-xl text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
+                            className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] border-2 border-soft-white/50 bg-soft-white/15 px-10 py-4 text-xl font-semibold text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
                         >
                             Learn About Us
                         </Link>
