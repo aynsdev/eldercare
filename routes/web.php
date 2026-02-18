@@ -1,15 +1,33 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\InquiryController;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Fortify\Features;
 
+// Public website routes
 Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
+    $testimonials = Testimonial::approved()->latest()->limit(3)->get();
+
+    return Inertia::render('home', [
+        'testimonials' => $testimonials,
     ]);
 })->name('home');
 
+Route::get('/about', fn () => Inertia::render('about'))->name('about');
+
+Route::get('/services', fn () => Inertia::render('services'))->name('services');
+
+Route::get('/faqs', fn () => Inertia::render('faqs'))->name('faqs');
+
+Route::get('/contact', fn () => Inertia::render('contact'))->name('contact');
+
+Route::post('/contact', [InquiryController::class, 'store'])->name('contact.store');
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+
+// Authenticated dashboard
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

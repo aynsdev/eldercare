@@ -9,9 +9,10 @@
 
 @theme {
     --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Open Sans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
+    --font-heading: 'Crimson Text', Georgia, serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -45,6 +46,13 @@
     --color-input: var(--input);
     --color-ring: var(--ring);
 
+    /* St. Joseph Eldercare custom color tokens */
+    --color-sage-green: var(--sage-green);
+    --color-forest-green: var(--forest-green);
+    --color-warm-gold: var(--warm-gold);
+    --color-cream: var(--cream);
+    --color-soft-white: var(--soft-white);
+
     --color-chart-1: var(--chart-1);
     --color-chart-2: var(--chart-2);
     --color-chart-3: var(--chart-3);
@@ -61,40 +69,60 @@
     --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* St. Joseph Eldercare Design System — Warm, accessible, senior-friendly */
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.87 0 0);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.87 0 0);
+    /* Custom eldercare palette */
+    --sage-green: hsl(82 25% 45%);
+    --forest-green: hsl(120 30% 25%);
+    --warm-gold: hsl(45 80% 60%);
+    --cream: hsl(45 40% 96%);
+    --soft-white: hsl(45 20% 98%);
+
+    /* Shadcn design tokens — overridden with eldercare palette */
+    --background: hsl(45 20% 98%);
+    --foreground: hsl(120 30% 25%);
+
+    --card: hsl(45 40% 96%);
+    --card-foreground: hsl(120 30% 25%);
+
+    --popover: hsl(45 20% 98%);
+    --popover-foreground: hsl(120 30% 25%);
+
+    --primary: hsl(82 25% 45%);
+    --primary-foreground: hsl(45 20% 98%);
+
+    --secondary: hsl(45 40% 90%);
+    --secondary-foreground: hsl(120 30% 25%);
+
+    --muted: hsl(45 30% 92%);
+    --muted-foreground: hsl(82 15% 40%);
+
+    --accent: hsl(45 80% 60%);
+    --accent-foreground: hsl(120 30% 25%);
+
+    --destructive: hsl(0 70% 50%);
+    --destructive-foreground: hsl(45 20% 98%);
+
+    --border: hsl(45 25% 85%);
+    --input: hsl(45 25% 85%);
+    --ring: hsl(82 25% 45%);
+
+    --radius: 0.75rem;
+
+    --chart-1: hsl(82 25% 45%);
+    --chart-2: hsl(45 80% 60%);
+    --chart-3: hsl(120 30% 25%);
+    --chart-4: hsl(45 40% 70%);
+    --chart-5: hsl(82 20% 60%);
+
+    --sidebar: hsl(45 30% 95%);
+    --sidebar-foreground: hsl(120 30% 25%);
+    --sidebar-primary: hsl(82 25% 45%);
+    --sidebar-primary-foreground: hsl(45 20% 98%);
+    --sidebar-accent: hsl(45 40% 90%);
+    --sidebar-accent-foreground: hsl(120 30% 25%);
+    --sidebar-border: hsl(45 25% 85%);
+    --sidebar-ring: hsl(82 25% 45%);
 }
 
 .dark {
@@ -139,5 +167,108 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-heading);
+    }
+}
+
+@layer components {
+    /* Senior-friendly larger text */
+    .text-senior {
+        font-size: 1.125rem;
+        line-height: 1.75;
+    }
+
+    .heading-large {
+        font-size: 2.5rem;
+        font-family: var(--font-heading);
+        font-weight: 600;
+        line-height: 1.25;
+        color: hsl(120 30% 25%);
+    }
+
+    .heading-medium {
+        font-size: 2rem;
+        font-family: var(--font-heading);
+        font-weight: 600;
+        line-height: 1.3;
+        color: hsl(120 30% 25%);
+    }
+
+    .heading-small {
+        font-size: 1.5rem;
+        font-family: var(--font-heading);
+        font-weight: 500;
+        line-height: 1.4;
+        color: hsl(120 30% 25%);
+    }
+
+    /* Primary sage-green button */
+    .btn-primary {
+        background-color: hsl(82 25% 45%);
+        color: hsl(45 20% 98%);
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .btn-primary:hover {
+        background-color: hsl(82 25% 38%);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    /* Secondary gold button */
+    .btn-secondary {
+        background-color: hsl(45 80% 60%);
+        color: hsl(120 30% 25%);
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: hsl(45 80% 53%);
+    }
+
+    /* Warm cream card */
+    .card-warm {
+        background-color: hsl(45 40% 96%);
+        border: 1px solid hsl(45 25% 85%);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.07);
+        transition: box-shadow 0.2s;
+    }
+
+    .card-warm:hover {
+        box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.1);
+    }
+
+    /* Warm green-to-gold gradient */
+    .bg-gradient-warm {
+        background: linear-gradient(135deg, hsl(82 25% 45%), hsl(45 80% 60%));
+    }
+
+    /* Subtle soft-white-to-cream gradient */
+    .bg-gradient-subtle {
+        background: linear-gradient(180deg, hsl(45 20% 98%), hsl(45 40% 96%));
     }
 }
