@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BlogPost extends Model
 {
@@ -13,7 +14,7 @@ class BlogPost extends Model
     protected $fillable = [
         'title',
         'slug',
-        'category',
+        'category_id',
         'excerpt',
         'content',
         'status',
@@ -25,6 +26,11 @@ class BlogPost extends Model
         return [
             'published_at' => 'datetime',
         ];
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(BlogCategory::class, 'category_id');
     }
 
     public function scopePublished($query)

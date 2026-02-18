@@ -2,18 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\BlogCategory;
 use App\Models\Testimonial;
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $this->call(AdminSeeder::class);
 
         // Sample testimonials for the home page
         $testimonials = [
@@ -41,7 +39,26 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($testimonials as $testimonial) {
-            Testimonial::create($testimonial);
+            Testimonial::firstOrCreate(['name' => $testimonial['name']], $testimonial);
+        }
+
+        // Seed blog categories
+        $categories = [
+            'Health & Wellness',
+            'Nutrition',
+            'Mental Health',
+            'Safety',
+            'Social Wellness',
+            'Activities',
+            'Caregiver Tips',
+            'Memory Care',
+        ];
+
+        foreach ($categories as $name) {
+            BlogCategory::firstOrCreate(
+                ['slug' => Str::slug($name)],
+                ['name' => $name, 'slug' => Str::slug($name)]
+            );
         }
     }
 }

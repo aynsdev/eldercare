@@ -74,9 +74,9 @@ export default function Home({ testimonials }: Props) {
                             medications, meal preparation, and more.
                         </p>
                         <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                            <Link href="/contact" className="btn-primary justify-center text-xl">
+                            <Link href="/inquire" className="btn-primary justify-center text-xl">
                                 <Calendar className="mr-2 h-6 w-6" />
-                                Schedule a Visit
+                                Submit an Inquiry
                             </Link>
                             <a
                                 href={`tel:${primaryPhone.tel}`}
@@ -252,11 +252,11 @@ export default function Home({ testimonials }: Props) {
                     </p>
                     <div className="flex flex-col justify-center gap-4 sm:flex-row">
                         <Link
-                            href="/contact"
+                            href="/inquire"
                             className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] bg-soft-white px-10 py-4 text-xl font-semibold text-forest-green shadow-lg transition-all hover:bg-soft-white/90"
                         >
                             <Calendar className="h-6 w-6" />
-                            Schedule Your Visit Today
+                            Submit an Inquiry
                         </Link>
                         <a
                             href={`tel:${primaryPhone.tel}`}

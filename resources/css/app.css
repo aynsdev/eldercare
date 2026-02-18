@@ -280,4 +280,116 @@
     .bg-gradient-subtle {
         background: linear-gradient(180deg, hsl(38 25% 98%) 0%, hsl(38 38% 95%) 100%);
     }
+
+    /* Rich article body — handles HTML content from the CMS */
+    .article-content {
+        color: hsl(150 42% 20%);
+        font-size: 1.2rem;
+        line-height: 1.85;
+
+        & p {
+            margin-bottom: 1.5rem;
+        }
+
+        & h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 600;
+            line-height: 1.25;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        & h3 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.3rem, 2vw, 1.6rem);
+            font-weight: 600;
+            line-height: 1.35;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        & h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        & a {
+            color: hsl(150 30% 40%);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.15s ease;
+
+            &:hover {
+                color: hsl(150 30% 30%);
+            }
+        }
+
+        & strong {
+            font-weight: 700;
+        }
+
+        & em {
+            font-style: italic;
+        }
+
+        & ul {
+            list-style: disc;
+            padding-left: 1.75rem;
+            margin-bottom: 1.5rem;
+
+            & li {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        & ol {
+            list-style: decimal;
+            padding-left: 1.75rem;
+            margin-bottom: 1.5rem;
+
+            & li {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        & blockquote {
+            border-left: 4px solid hsl(150 30% 40%);
+            padding: 0.75rem 1.25rem;
+            margin: 2rem 0;
+            background-color: hsl(150 30% 40% / 0.05);
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: hsl(150 18% 45%);
+            font-style: italic;
+        }
+
+        /* Responsive images */
+        & img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            margin: 1.75rem 0;
+            box-shadow: 0 4px 16px -4px rgb(0 0 0 / 0.12);
+        }
+
+        /* Responsive video/iframe embeds — preserves 16:9 */
+        & iframe {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 0.75rem;
+            margin: 1.75rem 0;
+            border: none;
+            box-shadow: 0 4px 16px -4px rgb(0 0 0 / 0.12);
+        }
+
+        & hr {
+            border: none;
+            border-top: 1px solid hsl(38 22% 88%);
+            margin: 2rem 0;
+        }
+    }
 }

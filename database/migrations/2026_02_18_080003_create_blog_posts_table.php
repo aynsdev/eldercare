@@ -8,11 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::dropIfExists('blog_posts');
+
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('category')->default('Health & Wellness');
+            $table->foreignId('category_id')->constrained('blog_categories')->onDelete('cascade');
             $table->text('excerpt');
             $table->longText('content');
             $table->string('status')->default('draft'); // draft, published

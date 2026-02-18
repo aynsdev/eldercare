@@ -1,5 +1,5 @@
 import { useForm, usePage } from '@inertiajs/react';
-import { Calendar, CheckCircle, Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { ArrowRight, Calendar, CheckCircle, Clock, ClipboardList, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useEffect } from 'react';
 import { address, email, phones, primaryPhone, visitingHours } from '@/lib/contact';
 import { Button } from '@/components/ui/button';
@@ -63,6 +63,32 @@ export default function Contact() {
                     </div>
                 </div>
             )}
+
+            {/* Admission Inquiry Banner */}
+            <div className="border-b border-primary/20 bg-primary/5 py-6">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                        <div className="flex items-center gap-4">
+                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15">
+                                <ClipboardList className="h-6 w-6 text-primary" />
+                            </div>
+                            <div>
+                                <p className="font-semibold text-foreground">Inquiring about admission for a loved one?</p>
+                                <p className="text-senior text-muted-foreground">
+                                    Use our detailed inquiry form so we can prepare the right care plan.
+                                </p>
+                            </div>
+                        </div>
+                        <a
+                            href="/inquire"
+                            className="btn-primary shrink-0 justify-center"
+                        >
+                            Start Admission Inquiry
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                        </a>
+                    </div>
+                </div>
+            </div>
 
             {/* Contact Info & Form */}
             <section className="bg-soft-white py-24">

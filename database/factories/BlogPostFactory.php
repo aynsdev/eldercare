@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,7 @@ class BlogPostFactory extends Factory
         return [
             'title' => $title,
             'slug' => Str::slug($title),
-            'category' => fake()->randomElement(['Health & Wellness', 'Nutrition', 'Mental Health', 'Safety', 'Social Wellness']),
+            'category_id' => BlogCategory::factory(),
             'excerpt' => fake()->paragraph(2),
             'content' => fake()->paragraphs(5, true),
             'status' => 'published',
