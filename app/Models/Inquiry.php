@@ -17,5 +17,17 @@ class Inquiry extends Model
         'preferred_contact',
         'message',
         'status',
+        'read_at',
+        'replied_at',
+        'closed_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'read_at' => 'datetime',
+            'replied_at' => 'datetime',
+            'closed_at' => 'datetime',
+        ];
+    }
 }

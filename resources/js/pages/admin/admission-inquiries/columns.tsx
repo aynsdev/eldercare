@@ -7,10 +7,14 @@ import type { AdmissionInquiry } from '@/types';
 
 export type { AdmissionInquiry };
 
-const STATUS_BADGE: Record<string, string> = {
-    new: 'bg-blue-100 text-blue-700',
-    read: 'bg-gray-100 text-gray-600',
-    replied: 'bg-green-100 text-green-700',
+const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
+    new: { label: 'New', className: 'bg-blue-100 text-blue-700' },
+    read: { label: 'Read', className: 'bg-gray-100 text-gray-600' },
+    in_progress: { label: 'In Progress', className: 'bg-amber-100 text-amber-700' },
+    tour_scheduled: { label: 'Tour Scheduled', className: 'bg-purple-100 text-purple-700' },
+    admitted: { label: 'Admitted', className: 'bg-green-100 text-green-700' },
+    declined: { label: 'Declined', className: 'bg-red-100 text-red-600' },
+    closed: { label: 'Closed', className: 'bg-slate-100 text-slate-500' },
 };
 
 function formatDate(d: string) {
@@ -53,11 +57,14 @@ export function createColumns(setDeletingId: (id: number) => void): ColumnDef<Ad
         {
             accessorKey: 'status',
             header: 'Status',
-            cell: ({ row }) => (
-                <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_BADGE[row.original.status] ?? 'bg-gray-100 text-gray-600'}`}>
-                    {row.original.status}
-                </span>
-            ),
+            cell: ({ row }) => {
+                const cfg = STATUS_CONFIG[row.original.status];
+                return (
+                    <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${cfg?.className ?? 'bg-gray-100 text-gray-600'}`}>
+                        {cfg?.label ?? row.original.status}
+                    </span>
+                );
+            },
         },
         {
             id: 'actions',

@@ -35,10 +35,10 @@ Route::get('/faqs', fn () => Inertia::render('faqs'))->name('faqs');
 
 Route::get('/contact', fn () => Inertia::render('contact'))->name('contact');
 
-Route::post('/contact', [InquiryController::class, 'store'])->name('contact.store');
+Route::post('/contact', [InquiryController::class, 'store'])->middleware('throttle:contact')->name('contact.store');
 
 Route::get('/inquire', [AdmissionInquiryController::class, 'create'])->name('inquire');
-Route::post('/inquire', [AdmissionInquiryController::class, 'store'])->name('inquire.store');
+Route::post('/inquire', [AdmissionInquiryController::class, 'store'])->middleware('throttle:admission-inquiry')->name('inquire.store');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
@@ -49,12 +49,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('inquiries', [AdminInquiryController::class, 'index'])->name('inquiries.index');
     Route::get('inquiries/{inquiry}', [AdminInquiryController::class, 'show'])->name('inquiries.show');
     Route::patch('inquiries/{inquiry}/read', [AdminInquiryController::class, 'markRead'])->name('inquiries.read');
+    Route::patch('inquiries/{inquiry}/status', [AdminInquiryController::class, 'updateStatus'])->name('inquiries.status');
     Route::delete('inquiries/{inquiry}', [AdminInquiryController::class, 'destroy'])->name('inquiries.destroy');
 
     // Admission inquiries
     Route::get('admission-inquiries', [AdminAdmissionInquiryController::class, 'index'])->name('admission-inquiries.index');
     Route::get('admission-inquiries/{admissionInquiry}', [AdminAdmissionInquiryController::class, 'show'])->name('admission-inquiries.show');
     Route::patch('admission-inquiries/{admissionInquiry}/read', [AdminAdmissionInquiryController::class, 'markRead'])->name('admission-inquiries.read');
+    Route::patch('admission-inquiries/{admissionInquiry}/status', [AdminAdmissionInquiryController::class, 'updateStatus'])->name('admission-inquiries.status');
     Route::delete('admission-inquiries/{admissionInquiry}', [AdminAdmissionInquiryController::class, 'destroy'])->name('admission-inquiries.destroy');
 
     // Testimonials

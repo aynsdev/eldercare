@@ -1,14 +1,25 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { ArrowLeft, Mail, Phone } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Circle, Mail, Phone } from 'lucide-react';
 import { toast } from 'sonner';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { BreadcrumbItem, AdmissionInquiry } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
     { title: 'Admission Inquiries', href: '/admin/admission-inquiries' },
     { title: 'View', href: '#' },
+];
+
+const STATUSES: { value: AdmissionInquiry['status']; label: string; className: string }[] = [
+    { value: 'new', label: 'New', className: 'bg-blue-100 text-blue-700' },
+    { value: 'read', label: 'Read', className: 'bg-gray-100 text-gray-600' },
+    { value: 'in_progress', label: 'In Progress', className: 'bg-amber-100 text-amber-700' },
+    { value: 'tour_scheduled', label: 'Tour Scheduled', className: 'bg-purple-100 text-purple-700' },
+    { value: 'admitted', label: 'Admitted', className: 'bg-green-100 text-green-700' },
+    { value: 'declined', label: 'Declined', className: 'bg-red-100 text-red-600' },
+    { value: 'closed', label: 'Closed', className: 'bg-slate-100 text-slate-500' },
 ];
 
 interface Props {
@@ -46,10 +57,17 @@ function formatDate(d: string) {
     return new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
+function formatTimestamp(d: string | null) {
+    if (!d) return null;
+    return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
 export default function AdmissionInquiryShow({ inquiry }: Props) {
-    function markRead() {
-        router.patch(`/admin/admission-inquiries/${inquiry.id}/read`, {}, {
-            onSuccess: () => toast.success('Marked as read.'),
+    const currentStatus = STATUSES.find((s) => s.value === inquiry.status);
+
+    function changeStatus(status: string) {
+        router.patch(`/admin/admission-inquiries/${inquiry.id}/status`, { status }, {
+            onSuccess: () => toast.success('Status updated.'),
         });
     }
 
@@ -114,28 +132,62 @@ export default function AdmissionInquiryShow({ inquiry }: Props) {
                     </div>
 
                     <div className="space-y-4">
-                        <div className="rounded-xl border border-sidebar-border/70 bg-card p-4">
-                            <h2 className="mb-3 font-semibold text-foreground">Status</h2>
-                            <span className={`rounded-full px-3 py-1 text-sm font-medium ${
-                                inquiry.status === 'new' ? 'bg-blue-100 text-blue-700' :
-                                inquiry.status === 'read' ? 'bg-gray-100 text-gray-600' :
-                                'bg-green-100 text-green-700'
-                            }`}>
-                                {inquiry.status}
+                        <div className="rounded-xl border border-sidebar-border/70 bg-card p-4 space-y-3">
+                            <h2 className="font-semibold text-foreground">Status</h2>
+                            <span className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${currentStatus?.className ?? 'bg-gray-100 text-gray-600'}`}>
+                                {currentStatus?.label ?? inquiry.status}
                             </span>
+                            <Select value={inquiry.status} onValueChange={changeStatus}>
+                                <SelectTrigger className="w-full">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {STATUSES.map((s) => (
+                                        <SelectItem key={s.value} value={s.value}>
+                                            {s.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
 
-                            <div className="mt-4 space-y-2">
-                                {inquiry.status === 'new' && (
-                                    <Button className="w-full" onClick={markRead}>
-                                        Mark as Read
-                                    </Button>
-                                )}
-                                <Button variant="outline" className="w-full" asChild>
-                                    <a href={`mailto:${inquiry.email}?subject=Re: Admission Inquiry for ${inquiry.resident_name}`}>
-                                        Reply via Email
-                                    </a>
-                                </Button>
-                            </div>
+                        {inquiry.email && (
+                            <Button variant="outline" className="w-full" asChild>
+                                <a href={`mailto:${inquiry.email}?subject=Re: Admission Inquiry for ${inquiry.resident_name}`}>
+                                    Reply via Email
+                                </a>
+                            </Button>
+                        )}
+
+                        <div className="rounded-xl border border-sidebar-border/70 bg-card p-4">
+                            <h2 className="mb-4 font-semibold text-foreground">Timeline</h2>
+                            <ol className="space-y-3">
+                                {[
+                                    { label: 'Received', timestamp: inquiry.created_at, always: true },
+                                    { label: 'Read', timestamp: inquiry.read_at },
+                                    { label: 'In Progress', timestamp: inquiry.in_progress_at },
+                                    { label: 'Tour Scheduled', timestamp: inquiry.tour_scheduled_at },
+                                    { label: 'Admitted', timestamp: inquiry.admitted_at },
+                                    { label: 'Declined', timestamp: inquiry.declined_at },
+                                    { label: 'Closed', timestamp: inquiry.closed_at },
+                                ].map(({ label, timestamp, always }) => {
+                                    const done = always || !!timestamp;
+                                    return (
+                                        <li key={label} className="flex items-start gap-3">
+                                            {done
+                                                ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                                                : <Circle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/30" />
+                                            }
+                                            <div>
+                                                <p className={`text-sm font-medium ${done ? 'text-foreground' : 'text-muted-foreground/50'}`}>{label}</p>
+                                                {timestamp && (
+                                                    <p className="text-xs text-muted-foreground">{formatTimestamp(timestamp)}</p>
+                                                )}
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ol>
                         </div>
 
                         {inquiry.how_found_us && (

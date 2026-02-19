@@ -51,7 +51,10 @@ export type Inquiry = {
     phone: string | null;
     preferred_contact: string | null;
     message: string;
-    status: 'new' | 'read' | 'replied';
+    status: 'new' | 'read' | 'replied' | 'closed';
+    read_at: string | null;
+    replied_at: string | null;
+    closed_at: string | null;
     created_at: string;
     updated_at: string;
 };
@@ -92,7 +95,13 @@ export type AdmissionInquiry = {
     // Other
     how_found_us: string | null;
     additional_info: string | null;
-    status: 'new' | 'contacted' | 'scheduled' | 'admitted' | 'closed';
+    status: 'new' | 'read' | 'in_progress' | 'tour_scheduled' | 'admitted' | 'declined' | 'closed';
+    read_at: string | null;
+    in_progress_at: string | null;
+    tour_scheduled_at: string | null;
+    admitted_at: string | null;
+    declined_at: string | null;
+    closed_at: string | null;
 
     // Computed
     full_name?: string;

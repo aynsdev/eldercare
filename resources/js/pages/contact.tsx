@@ -264,6 +264,10 @@ export default function Contact() {
                                         )}
                                     </div>
 
+                                    {errors.throttle && (
+                                        <p className="text-base text-destructive">{errors.throttle}</p>
+                                    )}
+
                                     <Button
                                         type="submit"
                                         size="lg"

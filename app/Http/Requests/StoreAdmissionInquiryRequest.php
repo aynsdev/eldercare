@@ -20,8 +20,8 @@ class StoreAdmissionInquiryRequest extends FormRequest
         foreach ($booleanFields as $field) {
             $value = $this->input($field);
             $conversions[$field] = match ($value) {
-                'yes' => true,
-                'no' => false,
+                'Yes' => true,
+                'No' => false,
                 default => null,
             };
         }

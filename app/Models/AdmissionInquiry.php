@@ -45,6 +45,12 @@ class AdmissionInquiry extends Model
         'how_found_us',
         'additional_info',
         'status',
+        'read_at',
+        'in_progress_at',
+        'tour_scheduled_at',
+        'admitted_at',
+        'declined_at',
+        'closed_at',
     ];
 
     protected function casts(): array
@@ -56,6 +62,12 @@ class AdmissionInquiry extends Model
             'needs_walking_assistance' => 'boolean',
             'is_wheelchair_bound' => 'boolean',
             'needs_bathing_assistance' => 'boolean',
+            'read_at' => 'datetime',
+            'in_progress_at' => 'datetime',
+            'tour_scheduled_at' => 'datetime',
+            'admitted_at' => 'datetime',
+            'declined_at' => 'datetime',
+            'closed_at' => 'datetime',
         ];
     }
 
