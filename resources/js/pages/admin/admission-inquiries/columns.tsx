@@ -3,19 +3,9 @@ import { Eye, Trash2 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { DataTableColumnHeader } from '@/components/ui/data-table';
+import type { AdmissionInquiry } from '@/types';
 
-export interface AdmissionInquiry {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    resident_name: string;
-    care_service?: string;
-    move_in_timeline?: string;
-    status: string;
-    created_at: string;
-}
+export type { AdmissionInquiry };
 
 const STATUS_BADGE: Record<string, string> = {
     new: 'bg-blue-100 text-blue-700',

@@ -61,6 +61,13 @@ class BlogPostController extends Controller
             ->with('success', 'Blog post created.');
     }
 
+    public function show(BlogPost $post): Response
+    {
+        return Inertia::render('admin/blog/posts/show', [
+            'post' => $post->load('category:id,name'),
+        ]);
+    }
+
     public function edit(BlogPost $post): Response
     {
         $categories = BlogCategory::orderBy('name')->get(['id', 'name']);

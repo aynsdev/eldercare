@@ -71,6 +71,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('blog/posts', [AdminBlogPostController::class, 'index'])->name('blog.posts.index');
     Route::get('blog/posts/create', [AdminBlogPostController::class, 'create'])->name('blog.posts.create');
     Route::post('blog/posts', [AdminBlogPostController::class, 'store'])->name('blog.posts.store');
+    Route::get('blog/posts/{post}', [AdminBlogPostController::class, 'show'])->name('blog.posts.show');
     Route::get('blog/posts/{post}/edit', [AdminBlogPostController::class, 'edit'])->name('blog.posts.edit');
     Route::put('blog/posts/{post}', [AdminBlogPostController::class, 'update'])->name('blog.posts.update');
     Route::delete('blog/posts/{post}', [AdminBlogPostController::class, 'destroy'])->name('blog.posts.destroy');
@@ -84,6 +85,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Media
     Route::post('media', [AdminMediaController::class, 'store'])->name('media.store');
 
+    // Notifications
+    Route::get('notifications', [AdminNotificationController::class, 'index'])->name('notifications.index');
+    Route::post('notifications/read-all', [AdminNotificationController::class, 'markAllRead'])->name('notifications.read-all');
+    Route::post('notifications/{notification}/read', [AdminNotificationController::class, 'markRead'])->name('notifications.read');
+
     // Team
     Route::get('team', [AdminTeamController::class, 'index'])->name('team.index');
     Route::get('team/create', [AdminTeamController::class, 'create'])->name('team.create');
@@ -91,12 +97,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('team/{team}/edit', [AdminTeamController::class, 'edit'])->name('team.edit');
     Route::put('team/{team}', [AdminTeamController::class, 'update'])->name('team.update');
     Route::delete('team/{team}', [AdminTeamController::class, 'destroy'])->name('team.destroy');
-});
-
-// Notifications
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::post('notifications/read-all', [AdminNotificationController::class, 'markAllRead'])->name('notifications.read-all');
-    Route::post('notifications/{notification}/read', [AdminNotificationController::class, 'markRead'])->name('notifications.read');
 });
 
 // Authenticated dashboard

@@ -3,16 +3,9 @@ import { Check, Pencil, Star, Trash2, X } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { DataTableColumnHeader } from '@/components/ui/data-table';
+import type { Testimonial } from '@/types';
 
-export interface Testimonial {
-    id: number;
-    name: string;
-    relation: string;
-    content: string;
-    rating: number;
-    status: string;
-    created_at: string;
-}
+export type { Testimonial };
 
 const STATUS_BADGE: Record<string, string> = {
     pending: 'bg-amber-100 text-amber-700',

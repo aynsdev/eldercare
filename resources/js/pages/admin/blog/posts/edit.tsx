@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, BlogCategory, BlogPost } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -17,25 +17,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Edit', href: '#' },
 ];
 
-interface Category {
-    id: number;
-    name: string;
-}
-
-interface BlogPost {
-    id: number;
-    title: string;
-    category_id: number;
-    excerpt: string;
-    content: string;
-    featured_image?: string;
-    status: string;
-    published_at?: string;
-}
-
 interface Props {
     post: BlogPost;
-    categories: Category[];
+    categories: BlogCategory[];
 }
 
 export default function BlogPostEdit({ post, categories }: Props) {
@@ -227,7 +211,7 @@ export default function BlogPostEdit({ post, categories }: Props) {
                                     Update Post
                                 </Button>
                                 <Button type="button" variant="outline" asChild>
-                                    <Link href={`/blog/${post.id}`} target="_blank">Preview</Link>
+                                    <Link href={`/blog/${post.slug}`} target="_blank">Preview</Link>
                                 </Button>
                             </div>
                         </div>

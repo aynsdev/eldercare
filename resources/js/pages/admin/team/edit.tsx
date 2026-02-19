@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, Team } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -16,18 +16,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Edit Member', href: '#' },
 ];
 
-interface TeamMember {
-    id: number;
-    name: string;
-    position: string;
-    bio?: string;
-    photo?: string;
-    order: number;
-    is_active: boolean;
-}
-
 interface Props {
-    member: TeamMember;
+    member: Team;
 }
 
 export default function TeamEdit({ member }: Props) {

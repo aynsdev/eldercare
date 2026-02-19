@@ -14,7 +14,7 @@ class BlogController extends Controller
         $posts = BlogPost::published()
             ->with('category:id,name,slug')
             ->latest('published_at')
-            ->get(['id', 'title', 'slug', 'category_id', 'excerpt', 'published_at']);
+            ->get(['id', 'title', 'slug', 'category_id', 'excerpt', 'featured_image', 'published_at']);
 
         $categories = BlogCategory::orderBy('name')->get(['id', 'name', 'slug']);
 

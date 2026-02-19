@@ -3,16 +3,9 @@ import { Eye, Trash2 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { DataTableColumnHeader } from '@/components/ui/data-table';
+import type { Inquiry } from '@/types';
 
-export interface Inquiry {
-    id: number;
-    name: string;
-    email: string;
-    phone?: string;
-    message: string;
-    status: string;
-    created_at: string;
-}
+export type { Inquiry };
 
 const STATUS_BADGE: Record<string, string> = {
     new: 'bg-blue-100 text-blue-700',

@@ -7,22 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, Testimonial } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
     { title: 'Testimonials', href: '/admin/testimonials' },
     { title: 'Edit', href: '#' },
 ];
-
-interface Testimonial {
-    id: number;
-    name: string;
-    relation: string;
-    content: string;
-    rating: number;
-    status: string;
-}
 
 interface Props {
     testimonial: Testimonial;

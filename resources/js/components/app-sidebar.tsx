@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import {
+    Bell,
     BookOpen,
     ClipboardList,
     FileText,
@@ -21,8 +22,9 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import AppLogo from './app-logo';
 import { dashboard } from '@/routes';
+
+import AppLogo from './app-logo';
 
 const navSections = [
     {
@@ -32,6 +34,11 @@ const navSections = [
                 title: 'Dashboard',
                 href: dashboard(),
                 icon: LayoutGrid,
+            },
+            {
+                title: 'Notifications',
+                href: '/admin/notifications',
+                icon: Bell,
             },
         ],
     },

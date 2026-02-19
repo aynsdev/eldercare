@@ -1,36 +1,12 @@
 import { Link } from '@inertiajs/react';
 import { ArrowLeft, ArrowRight, Calendar, User } from 'lucide-react';
 import PublicLayout from '@/layouts/public-layout';
-
-interface Category {
-    id: number;
-    name: string;
-    slug: string;
-    posts_count?: number;
-}
-
-interface Post {
-    id: number;
-    title: string;
-    slug: string;
-    category: Category;
-    excerpt: string;
-    content: string;
-    published_at: string;
-}
-
-interface RecentPost {
-    id: number;
-    title: string;
-    slug: string;
-    category: Category;
-    published_at: string;
-}
+import type { BlogCategory, BlogPost } from '@/types';
 
 interface Props {
-    post: Post;
-    recentPosts: RecentPost[];
-    categories: Category[];
+    post: BlogPost;
+    recentPosts: BlogPost[];
+    categories: BlogCategory[];
 }
 
 function formatDate(dateString: string): string {
@@ -106,6 +82,15 @@ export default function BlogShow({ post, recentPosts, categories }: Props) {
                             <article>
                                 <div className="card-warm overflow-hidden p-0">
                                     <div className={`h-1.5 w-full ${styles.accent}`} />
+                                    {post.featured_image && (
+                                        <div className="overflow-hidden">
+                                            <img
+                                                src={`/storage/${post.featured_image}`}
+                                                alt={post.title}
+                                                className="h-80 w-full object-cover"
+                                            />
+                                        </div>
+                                    )}
                                     <div
                                         className="article-content p-8 sm:p-10"
                                         dangerouslySetInnerHTML={{ __html: post.content }}

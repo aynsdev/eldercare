@@ -2,25 +2,11 @@ import { Link } from '@inertiajs/react';
 import { ArrowRight, Calendar, Tag } from 'lucide-react';
 import { useState } from 'react';
 import PublicLayout from '@/layouts/public-layout';
-
-interface Category {
-    id: number;
-    name: string;
-    slug: string;
-}
-
-interface BlogPost {
-    id: number;
-    title: string;
-    slug: string;
-    category: Category;
-    excerpt: string;
-    published_at: string;
-}
+import type { BlogCategory, BlogPost } from '@/types';
 
 interface Props {
     posts: BlogPost[];
-    categories: Category[];
+    categories: BlogCategory[];
 }
 
 function formatDate(dateString: string): string {
@@ -87,6 +73,16 @@ export default function Blog({ posts, categories }: Props) {
                             <div className="card-warm overflow-hidden p-0">
                                 {/* Category accent bar */}
                                 <div className={`h-1.5 w-full ${getCategoryStyles(featuredPost.category.name).accent}`} />
+
+                                {featuredPost.featured_image && (
+                                    <div className="overflow-hidden">
+                                        <img
+                                            src={`/storage/${featuredPost.featured_image}`}
+                                            alt={featuredPost.title}
+                                            className="h-80 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                    </div>
+                                )}
 
                                 <div className="p-8 sm:p-10">
                                     <div className="mb-5 flex items-center gap-3">
@@ -167,7 +163,7 @@ export default function Blog({ posts, categories }: Props) {
                     ) : (
                         <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
                             {filteredPosts.map((post) => {
-                                const styles = getCategoryStyles(post.category.name);
+                                const styles = getCategoryStyles(post.category?.name ?? '');
                                 return (
                                     <Link
                                         key={post.id}
@@ -175,17 +171,26 @@ export default function Blog({ posts, categories }: Props) {
                                         className="group block"
                                     >
                                         <article className="card-warm flex h-full flex-col overflow-hidden p-0">
-                                            {/* Category accent bar */}
-                                            <div className={`h-1 w-full ${styles.accent}`} />
+                                            {post.featured_image ? (
+                                                <div className="overflow-hidden">
+                                                    <img
+                                                        src={`/storage/${post.featured_image}`}
+                                                        alt={post.title}
+                                                        className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className={`h-1 w-full ${styles.accent}`} />
+                                            )}
 
                                             <div className="flex flex-1 flex-col p-6">
                                                 <div className="mb-4 flex items-center justify-between">
                                                     <span className={`rounded-full px-3 py-1 text-sm font-medium ${styles.badge}`}>
-                                                        {post.category.name}
+                                                        {post.category?.name}
                                                     </span>
                                                     <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                                                         <Calendar className="h-3.5 w-3.5" />
-                                                        <span>{formatDate(post.published_at)}</span>
+                                                        <span>{post.published_at ? formatDate(post.published_at) : ''}</span>
                                                     </div>
                                                 </div>
 

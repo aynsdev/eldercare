@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, BlogCategory } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -17,13 +17,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'New Post', href: '#' },
 ];
 
-interface Category {
-    id: number;
-    name: string;
-}
-
 interface Props {
-    categories: Category[];
+    categories: BlogCategory[];
 }
 
 export default function BlogPostCreate({ categories }: Props) {

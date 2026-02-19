@@ -393,8 +393,9 @@
         }
     }
 
-    /* Tiptap rich text editor */
-    .rich-editor-content .ProseMirror {
+    /* Tiptap rich text editor + blog content display */
+    .rich-editor-content .ProseMirror,
+    .prose-content {
         min-height: 280px;
         padding: 1rem 1.25rem;
         outline: none;
@@ -499,5 +500,11 @@
             border-top: 1px solid var(--border);
             margin: 1.5rem 0;
         }
+    }
+
+    .prose-content {
+        min-height: unset;
+        padding: 0;
+        outline: none;
     }
 }

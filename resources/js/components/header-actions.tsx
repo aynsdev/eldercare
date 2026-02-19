@@ -11,37 +11,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { AppNotification } from '@/types';
 
-const NOTIFICATION_LINKS: Record<string, (data: Record<string, unknown>) => string | null> = {
-    NewInquiry: (data) => data.inquiry_id ? `/admin/inquiries/${data.inquiry_id}` : '/admin/inquiries',
-    NewAdmissionInquiry: (data) => data.inquiry_id ? `/admin/admission-inquiries/${data.inquiry_id}` : '/admin/admission-inquiries',
-    NewTestimonial: () => '/admin/testimonials',
-};
-
-function getNotificationLink(notification: AppNotification): string | null {
-    const handler = NOTIFICATION_LINKS[notification.notification_type];
-    return handler ? handler(notification.data) : null;
-}
-
 function getNotificationMessage(notification: AppNotification): string {
     return (notification.data.message as string) ?? 'New notification';
-}
-
-function handleNotificationClick(notification: AppNotification) {
-    const link = getNotificationLink(notification);
-    const isUnread = !notification.read_at;
-
-    if (isUnread) {
-        router.post(`/notifications/${notification.id}/read`, {}, {
-            preserveScroll: !link,
-            onSuccess: () => {
-                if (link) {
-                    router.visit(link);
-                }
-            },
-        });
-    } else if (link) {
-        router.visit(link);
-    }
 }
 
 export function HeaderActions() {
@@ -72,7 +43,7 @@ export function HeaderActions() {
                     </DropdownMenuLabel>
                     {unreadNotificationsCount > 0 && (
                         <button
-                            onClick={() => router.post('/notifications/read-all', {}, { preserveScroll: true })}
+                            onClick={() => router.post('/admin/notifications/read-all', {}, { preserveScroll: true })}
                             className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
                         >
                             <CheckCheck className="h-3 w-3" />
@@ -95,7 +66,11 @@ export function HeaderActions() {
                             <DropdownMenuItem
                                 key={notification.id}
                                 className="flex cursor-pointer items-start gap-3 px-3 py-2.5"
-                                onClick={() => handleNotificationClick(notification)}
+                                onClick={() =>
+                                    router.post(`/admin/notifications/${notification.id}/read`, {}, {
+                                        preserveScroll: false,
+                                    })
+                                }
                             >
                                 <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${isUnread ? 'bg-blue-500' : 'bg-transparent'}`} />
                                 <div className="min-w-0 flex-1">
@@ -115,8 +90,8 @@ export function HeaderActions() {
 
                 <div className="p-1">
                     <DropdownMenuItem asChild>
-                        <Link href="/admin/inquiries" className="w-full justify-center text-xs font-medium">
-                            View all inquiries
+                        <Link href="/admin/notifications" className="w-full justify-center text-xs font-medium">
+                            View all notifications
                         </Link>
                     </DropdownMenuItem>
                 </div>

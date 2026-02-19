@@ -3,43 +3,13 @@ import { ArrowLeft, Mail, Phone } from 'lucide-react';
 import { toast } from 'sonner';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, AdmissionInquiry } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
     { title: 'Admission Inquiries', href: '/admin/admission-inquiries' },
     { title: 'View', href: '#' },
 ];
-
-interface AdmissionInquiry {
-    id: number;
-    title?: string;
-    first_name: string;
-    last_name: string;
-    address?: string;
-    phone: string;
-    email: string;
-    preferred_contact?: string;
-    resident_name: string;
-    resident_gender?: string;
-    resident_address?: string;
-    resident_date_of_birth?: string;
-    relationship?: string;
-    care_service?: string;
-    medical_conditions?: string[];
-    special_needs?: string;
-    needs_walking_assistance?: boolean;
-    is_wheelchair_bound?: boolean;
-    needs_bathing_assistance?: boolean;
-    has_feeding_tube?: string;
-    move_in_timeline?: string;
-    preferred_tour_date?: string;
-    preferred_tour_time?: string;
-    how_found_us?: string;
-    additional_info?: string;
-    status: string;
-    created_at: string;
-}
 
 interface Props {
     inquiry: AdmissionInquiry;

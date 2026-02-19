@@ -2,15 +2,7 @@ import { Link } from '@inertiajs/react';
 import { ArrowDown, ArrowRight, Calendar, Heart, Phone, Shield, Star, Users } from 'lucide-react';
 import { primaryPhone } from '@/lib/contact';
 import PublicLayout from '@/layouts/public-layout';
-
-
-interface Testimonial {
-    id: number;
-    name: string;
-    relation: string;
-    content: string;
-    rating: number;
-}
+import type { Testimonial } from '@/types';
 
 interface Props {
     testimonials: Testimonial[];

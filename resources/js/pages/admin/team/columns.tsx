@@ -3,15 +3,9 @@ import { Pencil, Trash2 } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { DataTableColumnHeader } from '@/components/ui/data-table';
+import type { Team } from '@/types';
 
-export interface TeamMember {
-    id: number;
-    name: string;
-    position: string;
-    photo?: string;
-    order: number;
-    is_active: boolean;
-}
+export type { Team as TeamMember };
 
 export function createColumns(setDeletingId: (id: number) => void): ColumnDef<TeamMember>[] {
     return [

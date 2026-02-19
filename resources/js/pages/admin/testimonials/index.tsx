@@ -1,4 +1,5 @@
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
+import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -70,9 +71,16 @@ export default function TestimonialsIndex({ testimonials }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Testimonials" />
             <div className="flex flex-col gap-6 p-4">
-                <div>
-                    <h1 className="text-2xl font-semibold text-foreground">Testimonials</h1>
-                    <p className="text-sm text-muted-foreground">{testimonials.total} total</p>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold text-foreground">Testimonials</h1>
+                        <p className="text-sm text-muted-foreground">{testimonials.total} total</p>
+                    </div>
+                    <Button asChild>
+                        <Link href="/admin/testimonials/create">
+                            <Plus className="mr-1.5 h-4 w-4" /> Add Testimonial
+                        </Link>
+                    </Button>
                 </div>
 
                 <div className="overflow-hidden rounded-xl border border-sidebar-border/70 bg-card">

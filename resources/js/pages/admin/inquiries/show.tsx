@@ -3,24 +3,13 @@ import { ArrowLeft, Mail, Phone } from 'lucide-react';
 import { toast } from 'sonner';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, Inquiry } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
     { title: 'Contact Inquiries', href: '/admin/inquiries' },
     { title: 'View Inquiry', href: '#' },
 ];
-
-interface Inquiry {
-    id: number;
-    name: string;
-    email: string;
-    phone?: string;
-    preferred_contact?: string;
-    message: string;
-    status: string;
-    created_at: string;
-}
 
 interface Props {
     inquiry: Inquiry;

@@ -1,8 +1,9 @@
 import { EditorContent, useEditor } from '@tiptap/react';
-import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import Link from '@tiptap/extension-link';
 import StarterKit from '@tiptap/starter-kit';
+import Youtube from '@tiptap/extension-youtube';
+import { ResizableImage } from '@/components/resizable-image';
 import {
     Bold,
     Code,
@@ -18,8 +19,10 @@ import {
     Quote,
     Redo,
     Undo,
+    Youtube as YoutubeIcon,
 } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -71,8 +74,12 @@ export function RichEditor({ value, onChange, placeholder, className }: RichEdit
                 openOnClick: false,
                 HTMLAttributes: { rel: 'noopener noreferrer', target: '_blank' },
             }),
-            Image.configure({
-                HTMLAttributes: { class: 'rounded-lg max-w-full' },
+            ResizableImage,
+            // Extend to prevent Youtube from re-registering Link (avoids duplicate extension warning)
+            Youtube.extend({ addExtensions: () => [] }).configure({
+                width: 640,
+                height: 360,
+                HTMLAttributes: { class: 'rounded-lg w-full' },
             }),
         ],
         content: value,
@@ -107,20 +114,34 @@ export function RichEditor({ value, onChange, placeholder, className }: RichEdit
         const formData = new FormData();
         formData.append('image', file);
 
-        const csrfMeta = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]');
-        const response = await fetch('/admin/media', {
-            method: 'POST',
-            headers: { 'X-CSRF-TOKEN': csrfMeta?.content ?? '' },
-            body: formData,
-        });
+        try {
+            const csrfMeta = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]');
+            const response = await fetch('/admin/media', {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfMeta?.content ?? '' },
+                body: formData,
+            });
 
-        if (response.ok) {
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({})) as { message?: string };
+                toast.error(err.message ?? 'Image upload failed.');
+                return;
+            }
+
             const { url } = await response.json() as { url: string };
             editor?.chain().focus().setImage({ src: url }).run();
+        } catch {
+            toast.error('Image upload failed. Please try again.');
+        } finally {
+            // Reset so the same file can be re-uploaded
+            e.target.value = '';
         }
+    }
 
-        // Reset input so the same file can be re-uploaded
-        e.target.value = '';
+    function insertVideo() {
+        const url = window.prompt('Enter YouTube video URL');
+        if (!url) return;
+        editor?.chain().focus().setYoutubeVideo({ src: url }).run();
     }
 
     return (
@@ -216,6 +237,9 @@ export function RichEditor({ value, onChange, placeholder, className }: RichEdit
                     title="Insert image"
                 >
                     <ImageIcon className="h-4 w-4" />
+                </ToolbarButton>
+                <ToolbarButton onClick={insertVideo} title="Embed YouTube video">
+                    <YoutubeIcon className="h-4 w-4" />
                 </ToolbarButton>
                 <ToolbarButton
                     onClick={() => editor.chain().focus().setHorizontalRule().run()}

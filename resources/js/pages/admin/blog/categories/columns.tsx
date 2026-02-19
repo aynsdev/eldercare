@@ -3,13 +3,9 @@ import { Check, Pencil, Trash2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DataTableColumnHeader } from '@/components/ui/data-table';
 import { Input } from '@/components/ui/input';
+import type { BlogCategory } from '@/types';
 
-export interface Category {
-    id: number;
-    name: string;
-    slug: string;
-    posts_count: number;
-}
+export type Category = BlogCategory & { posts_count: number };
 
 interface CreateColumnsOptions {
     editingId: number | null;
