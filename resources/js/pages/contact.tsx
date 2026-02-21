@@ -328,7 +328,7 @@ export default function Contact() {
                             className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] bg-soft-white px-10 py-4 text-xl font-semibold text-forest-green shadow-lg transition-all hover:bg-soft-white/90"
                         >
                             <Phone className="h-6 w-6" />
-                            Call Now: +63 915 371 4314
+                            Call Now: {primaryPhone.tel}
                         </a>
                         <a
                             href={`mailto:${email}`}

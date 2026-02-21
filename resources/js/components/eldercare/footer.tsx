@@ -22,10 +22,10 @@ export default function Footer() {
                             Providing compassionate, dignified care for seniors in a warm, family-oriented environment.
                             Your loved ones deserve the best.
                         </p>
-                        <div className="inline-flex items-center gap-2.5 rounded-full bg-warm-gold/15 px-4 py-2 ring-1 ring-warm-gold/30">
-                            <Heart className="h-4 w-4 fill-warm-gold text-warm-gold" />
-                            <span className="text-base font-medium text-warm-gold">Caring with dignity since 2025</span>
-                        </div>
+                        <p className="flex items-center gap-2 text-sm font-medium text-warm-gold/80">
+                            <Heart className="h-3.5 w-3.5 fill-warm-gold/70 text-warm-gold/70" />
+                            Caring with dignity since 2025
+                        </p>
 
                         {/* Social links */}
                         <div className="mt-6 flex items-center gap-3">

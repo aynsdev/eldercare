@@ -4,9 +4,9 @@
  */
 
 export const phones = [
+    { label: '(038) 412-8270', tel: '03841282170' },
     { label: '+63 915 371 4314', tel: '+639153714314' },
     { label: '+63 935 794 3648', tel: '+639357943648' },
-    { label: '(038) 412-8270', tel: '03841282170' },
 ];
 
 /** Primary number used for single-button CTAs */

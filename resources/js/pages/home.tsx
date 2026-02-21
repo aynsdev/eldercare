@@ -34,11 +34,11 @@ export default function Home({ testimonials }: Props) {
             description="Providing compassionate, dignified senior care in a warm family-oriented environment in Tagbilaran City."
         >
             {/* Hero Section */}
-            <section className="relative flex flex-col" style={{ minHeight: '600px', height: '72vh' }}>
+            <section className="relative flex flex-col" style={{ minHeight: '580px', height: '72vh' }}>
                 {/* Background */}
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: 'url(/images/residence-exterior.jpg)' }}
+                    style={{ backgroundImage: 'url(/images/hero-bg.jpg)' }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-forest-green/75 via-forest-green/60 to-forest-green/80" />
                 </div>
@@ -46,35 +46,38 @@ export default function Home({ testimonials }: Props) {
                 {/* Centered content */}
                 <div className="relative z-10 flex flex-1 items-center justify-center px-4">
                     <div className="container mx-auto text-center text-soft-white">
-                        {/* Trust badge */}
-                        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-warm-gold/40 bg-warm-gold/15 px-5 py-2 backdrop-blur-sm">
-                            <span className="h-1.5 w-1.5 rounded-full bg-warm-gold" />
-                            <span className="text-base font-medium text-warm-gold">Assisted Living & Elderly Care Services · Tagbilaran City, Bohol</span>
+                        {/* Eyebrow */}
+                        <div className="mb-5 flex items-center justify-center gap-4 sm:mb-6">
+                            <span className="h-px w-10 bg-warm-gold/50 sm:w-14" />
+                            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-warm-gold sm:text-sm">
+                                Assisted Living · Tagbilaran City, Bohol
+                            </span>
+                            <span className="h-px w-10 bg-warm-gold/50 sm:w-14" />
                         </div>
 
-                        <h1 className="mb-3 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h1 className="mb-3 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl" style={{ fontFamily: 'var(--font-heading)' }}>
                             Welcome to Your
                             <br />
                             <span className="text-warm-gold">Home Away from Home</span>
                         </h1>
-                        <p className="mx-auto mb-5 text-lg font-medium text-soft-white/80 md:text-xl" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <p className="mx-auto mb-4 text-base font-medium text-soft-white/80 sm:mb-5 sm:text-lg md:text-xl" style={{ fontFamily: 'var(--font-heading)' }}>
                             A Life of Comfort, Dignity, and Care
                         </p>
-                        <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-soft-white/90">
+                        <p className="mx-auto mb-6 max-w-2xl text-sm leading-relaxed text-soft-white/90 sm:mb-8 sm:text-base md:text-lg">
                             We offer a caring, safe, and comfortable environment where seniors can live
                             semi-independently while receiving compassionate assistance with daily activities,
                             medications, meal preparation, and more.
                         </p>
-                        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                            <Link href="/inquire" className="btn-primary justify-center text-xl">
-                                <Calendar className="mr-2 h-6 w-6" />
+                        <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+                            <Link href="/inquire" className="btn-primary justify-center">
+                                <Calendar className="mr-2 h-5 w-5" />
                                 Submit an Inquiry
                             </Link>
                             <a
                                 href={`tel:${primaryPhone.tel}`}
-                                className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] border-2 border-soft-white/50 bg-soft-white/15 px-9 py-3.5 text-xl font-semibold text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green"
+                                className="flex min-h-[3.25rem] items-center justify-center gap-2 rounded-[0.625rem] border-2 border-soft-white/50 bg-soft-white/15 px-6 py-3.5 font-semibold text-soft-white backdrop-blur-sm transition-all hover:bg-soft-white hover:text-forest-green sm:px-9 sm:text-lg"
                             >
-                                <Phone className="h-6 w-6" />
+                                <Phone className="h-5 w-5" />
                                 Call Now
                             </a>
                         </div>
@@ -82,22 +85,22 @@ export default function Home({ testimonials }: Props) {
                 </div>
 
                 {/* Scroll indicator — anchored to bottom of section */}
-                <div className="relative z-10 flex flex-col items-center gap-1 pb-5 text-soft-white/60">
-                    <span className="text-sm font-medium tracking-wide">Scroll to explore</span>
-                    <ArrowDown className="h-5 w-5 animate-bounce" />
+                <div className="relative z-10 flex flex-col items-center gap-1 pb-4 text-soft-white/60">
+                    <span className="text-xs font-medium tracking-wide sm:text-sm">Scroll to explore</span>
+                    <ArrowDown className="h-4 w-4 animate-bounce sm:h-5 sm:w-5" />
                 </div>
             </section>
 
             {/* Stats Strip */}
             <div className="bg-forest-green">
-                <div className="container mx-auto px-4 py-8">
-                    <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
+                <div className="container mx-auto px-4 py-6 md:py-8">
+                    <div className="grid grid-cols-3 gap-3 md:gap-6">
                         {stats.map(({ number, label }) => (
                             <div key={label} className="text-center">
-                                <div className="mb-1 text-3xl font-bold text-warm-gold" style={{ fontFamily: 'var(--font-heading)' }}>
+                                <div className="mb-1 text-xl font-bold text-warm-gold sm:text-2xl md:text-3xl" style={{ fontFamily: 'var(--font-heading)' }}>
                                     {number}
                                 </div>
-                                <div className="text-base text-soft-white/80">{label}</div>
+                                <div className="text-xs leading-snug text-soft-white/80 sm:text-sm md:text-base">{label}</div>
                             </div>
                         ))}
                     </div>
@@ -105,9 +108,9 @@ export default function Home({ testimonials }: Props) {
             </div>
 
             {/* Why Families Choose Us */}
-            <section className="bg-soft-white py-24">
+            <section className="bg-soft-white py-14 md:py-24">
                 <div className="container mx-auto px-4">
-                    <div className="mb-16 text-center">
+                    <div className="mb-10 text-center md:mb-16">
                         <p className="mb-3 text-base font-semibold uppercase tracking-widest text-primary">Why Choose Us</p>
                         <h2 className="heading-large mb-6">A Family-Oriented Home for Seniors</h2>
                         <p className="text-senior text-muted-foreground mx-auto max-w-3xl">
@@ -183,7 +186,7 @@ export default function Home({ testimonials }: Props) {
 
                         <div className="relative">
                             <img
-                                src="/images/seniors-living-room.jpg"
+                                src="/images/model-cg.jpeg"
                                 alt="Happy seniors in our comfortable living area"
                                 className="w-full rounded-2xl shadow-2xl"
                             />
